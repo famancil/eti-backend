@@ -1,0 +1,79 @@
+<wsdl:definitions xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ws="http://www.grupocbb.cl/ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:rsp="http://www.grupocbb.cl/ws/apa/rsp" xmlns:apa="http://www.grupocbb.cl/ws/apa" targetNamespace="http://www.grupocbb.cl/ws">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ws="http://www.grupocbb.cl/ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:rsp="http://www.grupocbb.cl/ws/apa/rsp" xmlns:apa="http://www.grupocbb.cl/ws/apa" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.grupocbb.cl/ws/apa">
+            <xs:element name="APA">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="p_user" type="xs:string"/>
+                        <xs:element minOccurs="0" name="p_password" type="xs:string"/>
+                        <xs:element name="p_aplica" type="xs:string"/>
+                        <xs:element name="p_dominio" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ws="http://www.grupocbb.cl/ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:rsp="http://www.grupocbb.cl/ws/apa/rsp" xmlns:apa="http://www.grupocbb.cl/ws/apa" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.grupocbb.cl/ws/apa/rsp">
+            <xs:element name="APA_RSP">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="ROW">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="USR_LOGIN" type="xs:string"/>
+                                    <xs:element name="USR_DISPLAYNAME" type="xs:string"/>
+                                    <xs:element name="USR_EMAIL" type="xs:string"/>
+                                    <xs:element name="ROL_CODIGO" type="xs:string"/>
+                                    <xs:element name="ROL_NAME" type="xs:string"/>
+                                    <xs:element name="MOD_CODIGO" type="xs:string"/>
+                                    <xs:element name="MOD_NOMBRE" type="xs:string"/>
+                                    <xs:element name="OPC_CODIGO" type="xs:string"/>
+                                    <xs:element name="OPC_NOMBRE" type="xs:string"/>
+                                    <xs:element name="VALOR_DOM" type="xs:string"/>
+                                    <xs:element name="AUX1" type="xs:string"/>
+                                    <xs:element name="AUX2" type="xs:string"/>
+                                    <xs:element name="AUX3" type="xs:string"/>
+                                    <xs:element name="AUX4" type="xs:string"/>
+                                    <xs:element name="AUX5" type="xs:string"/>
+                                    <xs:element name="AUX6" type="xs:string"/>
+                                    <xs:element name="AUX7" type="xs:string"/>
+                                    <xs:element name="AUX8" type="xs:string"/>
+                                    <xs:element name="AUX9" type="xs:string"/>
+                                    <xs:element name="AUX10" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="Response">
+        <wsdl:part element="rsp:APA_RSP" name="Output"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="Request">
+        <wsdl:part element="apa:APA" name="Input"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="apaPortType">
+        <wsdl:operation name="apa">
+            <wsdl:input message="ws:Request"> </wsdl:input>
+            <wsdl:output message="ws:Response"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="apaSOAPBinding" type="ws:apaPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="apa">
+            <soap:operation soapAction="http://www.grupocbb.cl/ws"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="apa_Service">
+        <wsdl:port binding="ws:apaSOAPBinding" name="apaPortType">
+            <soap:address location="http://10.249.88.3:8182/cxf/apa"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
